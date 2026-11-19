@@ -912,6 +912,23 @@ html[data-mode=dark] .ctile{background:linear-gradient(140deg,color-mix(in oklab
 .xc-ol{margin:0;padding-left:20px}.xc-ol li{margin:6px 0}
 .ai-box{border-top:4px solid var(--ac)!important}.ai-msg{padding:8px 0;border-top:1px dashed var(--line)}.ai-msg:first-of-type{border-top:0}.ai-q{font-weight:700;white-space:pre-wrap}.ai-q small{display:block;font-weight:600;color:var(--mut);font-size:11px}.ai-a{white-space:pre-wrap;margin-top:4px;padding:8px 10px;border-radius:12px;background:var(--acc2);font-size:14.5px}
 .neon-p{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:6px}.neon-p button{padding:6px 2px;border-radius:12px;background:#1b1e23!important;color:#fff!important;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px;border:2px solid transparent}.neon-p i{width:22px;height:22px;border-radius:50%;background:var(--n);box-shadow:0 0 10px var(--n),0 0 2px #fff inset}.neon-p button.on{border-color:var(--n);box-shadow:0 0 10px var(--n)}
+.wg1 .wt{container-type:size}
+.wg1 .wt h2{font-size:clamp(11px,min(11cqh,7cqw),22px)!important;margin-bottom:4px!important}
+.wg1 .wt .wl{font-size:clamp(13px,min(10cqh,7.6cqw),28px);line-height:1.25}
+.wg1 .wclock,.wg1 .wclock *{color:#fff!important}.wg1 .wclock .wdate{font-size:clamp(13px,min(14cqh,4.5cqw),26px);opacity:.9}.wg1 .wclock .wtime{font-size:clamp(30px,min(55cqh,16cqw),120px)}
+@container (max-width:520px){.whr .whg{grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr}.whr .whg b{font-size:clamp(11px,5.5cqw,18px)}.whr .whg span{font-size:clamp(16px,8cqw,32px)}.whr .whg i{font-size:clamp(13px,6cqw,24px)}.whr .whg small{font-size:clamp(9px,3.6cqw,14px)}}
+.wg1 .wt .wb{font-size:clamp(15px,min(16cqh,10cqw),34px)}
+.wg1 .wt .wn{font-size:clamp(24px,min(34cqh,24cqw),78px)}
+.wg1 .wt .wn small{font-size:.45em}
+.wg1 .wt .wcd{font-size:clamp(11px,min(9cqh,6cqw),20px)}
+.wg1 .wxs.wxm .tmp{font-size:clamp(34px,min(30cqh,20cqw),110px)}
+.wg1 .wxs.wxm :is(.dsc,.wxx){font-size:clamp(13px,min(8cqh,5cqw),24px);font-weight:800}
+.wg1 .wxs.wxm :is(.pl,.sr,.fcm){font-size:clamp(11px,min(7cqh,4.4cqw),20px)}
+.wg1 .wwx{container-type:size}
+.wxx{font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.whr .whg{flex:1;display:grid;grid-template-columns:repeat(12,1fr);gap:2px;align-items:stretch;min-height:0}
+.whr .whg div{display:flex;flex-direction:column;align-items:center;justify-content:space-between;border-radius:10px;background:color-mix(in oklab,var(--card),transparent 55%);padding:3px 0;min-width:0}
+.whr .whg b{font-size:clamp(10px,min(12cqh,2.6cqw),20px)}.whr .whg span{font-size:clamp(14px,min(22cqh,4.2cqw),38px);line-height:1}.whr .whg i{font-style:normal;font-weight:800;font-size:clamp(12px,min(16cqh,3.2cqw),28px)}.whr .whg small{font-size:clamp(8px,min(9cqh,2.1cqw),15px);font-weight:700;opacity:.85;min-height:1em}
 /* fejléc gombok */
 header .hr{display:flex;align-items:center;gap:4px}
 header .hb{background:transparent;color:var(--ink);padding:6px;border-radius:12px;position:relative}
@@ -1421,8 +1438,8 @@ let HOME_CAT=[],homeFolder=false,HOME_CATONLY=false;
 function homeCat(){HOME_CATONLY=true;try{vMa()}finally{HOME_CATONLY=false}return HOME_CAT}
 const HOME_DEF=['orarend','sync','frissites','excel','claude','chatgpt','naplo','kreta','utvonal','maker','teendok','spend','emlek','gyogy','eseti','kaloria','viz','torna','hala','buddha','ajandek','unnep','nevnap','idojaras','horoszkop','hirek','meglepi','teendo','heti','penz','gmail','iskolak','alvo','radio','youtube','widget','beallitas'];
 function homeIds(all){const ok=new Set((all||HOME_CAT).map(x=>x[0]));return (Array.isArray(S.settings.home)?S.settings.home:HOME_DEF).filter(id=>ok.has(id))}
-const WICO={clock:'🕐',weather:'⛅',senj:'🌊',meds:'💊',next:'📚',todaycal:'🗓️',tasks:'✅',tomorrow:'➡️',remind:'⏰',celebr:'🎂',food:'🍽️',water:'💧',mail:'✉️',workout:'🤸',money:'💸',quote:'💜',gift:'🎁',moon:'🌙',pet:'🐱'};
-function wSel(){return S.settings.wTiles||WT.map(x=>x[0]).filter(wOn)}
+const WICO={hourly:'⏱️',clock:'🕐',weather:'⛅',senj:'🌊',meds:'💊',next:'📚',todaycal:'🗓️',tasks:'✅',tomorrow:'➡️',remind:'⏰',celebr:'🎂',food:'🍽️',water:'💧',mail:'✉️',workout:'🤸',money:'💸',quote:'💜',gift:'🎁',moon:'🌙',pet:'🐱'};
+function wSel(){const L=S.settings.wTiles||WT.map(x=>x[0]).filter(wOn);if(!S.settings.wHrMig&&S.settings.wTiles&&!L.includes('hourly')){S.settings.wHrMig=1;S.settings.wTiles=[...L.slice(0,2),'hourly',...L.slice(2)];return S.settings.wTiles}return L}
 function vPhemex(all){const on=homeIds(all);
  const seg=`<div class="seg">${[['fo','🏠 Főoldal'],['wg','▣ Widget'],['tel','📱 Telefon appjai']].map(([k,l])=>`<button class="${phxSeg===k?'act':''}" data-pxs="${k}">${l}</button>`).join('')}</div>`;
  const item=(id,ic,lb,attr,cls,i,pinAttr)=>`<div class="pxi ${i>=0?'on':''}"><div class="wt ht ${cls||''}" ${attr}><div class="hi">${ic}</div><div class="hl2">${lb}</div></div><button class="pxb" ${pinAttr}="${esc(id)}">${i>=0?'✓':'＋'}</button>${i>=0?`<span class="pxn">${i+1}</span>`:''}</div>`;
@@ -2281,9 +2298,9 @@ function vUnnep(){
 // ---------- Élő időjárás (Android-appban: Open-Meteo) ----------
 const WXC={0:['Derült','☀️','clear'],1:['Többnyire derült','🌤️','partly'],2:['Részben felhős','⛅','partly'],3:['Borult','☁️','cloudy'],45:['Köd','🌫️','fog'],48:['Zúzmarás köd','🌫️','fog'],51:['Gyenge szitálás','🌦️','rain'],53:['Szitálás','🌦️','rain'],55:['Erős szitálás','🌧️','rain'],56:['Ónos szitálás','🌧️','rain'],57:['Ónos szitálás','🌧️','rain'],61:['Gyenge eső','🌦️','rain'],63:['Eső','🌧️','rain'],65:['Erős eső','🌧️','rain'],66:['Ónos eső','🌧️','rain'],67:['Ónos eső','🌧️','rain'],71:['Gyenge havazás','🌨️','snow'],73:['Havazás','🌨️','snow'],75:['Erős havazás','❄️','snow'],77:['Hószemcse','🌨️','snow'],80:['Zápor','🌦️','rain'],81:['Zápor','🌧️','rain'],82:['Heves zápor','⛈️','rain'],85:['Hózápor','🌨️','snow'],86:['Erős hózápor','❄️','snow'],95:['Zivatar','⛈️','storm'],96:['Zivatar jégesővel','⛈️','storm'],99:['Zivatar jégesővel','⛈️','storm']};
 const wxMem={};
-function getWx(lat,lon){const key='szs-wx-'+lat.toFixed(2)+','+lon.toFixed(2);let c=wxMem[key];if(!c){try{c=JSON.parse(localStorage.getItem(key)||'null')}catch(_){}}
+function getWx(lat,lon){const key='szs-wx2-'+lat.toFixed(2)+','+lon.toFixed(2);let c=wxMem[key];if(!c){try{c=JSON.parse(localStorage.getItem(key)||'null')}catch(_){}}
  const fresh=c&&Date.now()-c.at<30*60e3;
- if(NATIVE&&!fresh&&!wxMem[key+'_l']){wxMem[key+'_l']=1;fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FBudapest&forecast_days=4`).then(r=>r.json()).then(j=>{const d={at:Date.now(),j};wxMem[key]=d;try{localStorage.setItem(key,JSON.stringify(d))}catch(_){}render()}).catch(()=>{}).finally(()=>{setTimeout(()=>{delete wxMem[key+'_l']},60e3)})}
+ if((NATIVE||!window.claude)&&!fresh&&!wxMem[key+'_l']){wxMem[key+'_l']=1;fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,is_day&hourly=temperature_2m,weather_code,precipitation_probability&forecast_hours=13&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FBudapest&forecast_days=4`).then(r=>r.json()).then(j=>{const d={at:Date.now(),j};wxMem[key]=d;try{localStorage.setItem(key,JSON.stringify(d))}catch(_){}render()}).catch(()=>{}).finally(()=>{setTimeout(()=>{delete wxMem[key+'_l']},60e3)})}
  if(c)wxMem[key]=c;return c&&c.j}
 function wxScene(name,lat,lon,big){
  const n=new Date(),s=sunTimes(new Date(today()+'T12:00:00'),lat,lon),j=getWx(lat,lon);
@@ -2308,8 +2325,8 @@ function wxScene(name,lat,lon,big){
 }
 
 // ---------- Widget: minden egy képernyőn ----------
-const WT=[['clock','Óra, dátum, névnap'],['weather','Animált időjárás (helyben)'],['senj','Időjárás – Senj'],['meds','Gyógyszer ma'],['next','Következő óra'],['todaycal','Mai órarend'],['tasks','Mai teendők'],['tomorrow','Holnap'],['remind','Következő emlékeztető'],['celebr','Születés- és névnapok'],['food','Kalória ma'],['water','Vízivás'],['mail','Gmail'],['workout','Reggeli torna'],['money','Mai költés'],['quote','A mai gondolat'],['gift','Napi meglepi'],['moon','Hold'],['pet','Kabala']];
-const WSZ={clock:[2,1],weather:[2,2],senj:[1,1],meds:[1,1],next:[1,2],todaycal:[1,2],tasks:[1,2],tomorrow:[1,1],remind:[1,1],celebr:[1,2],food:[1,1],water:[1,1],mail:[1,1],workout:[1,1],money:[1,1],quote:[2,1],gift:[1,1],moon:[1,1],pet:[1,1]};
+const WT=[['clock','Óra, dátum, névnap'],['hourly','Óránkénti előrejelzés (12 óra)'],['weather','Animált időjárás (helyben)'],['senj','Időjárás – Senj'],['meds','Gyógyszer ma'],['next','Következő óra'],['todaycal','Mai órarend'],['tasks','Mai teendők'],['tomorrow','Holnap'],['remind','Következő emlékeztető'],['celebr','Születés- és névnapok'],['food','Kalória ma'],['water','Vízivás'],['mail','Gmail'],['workout','Reggeli torna'],['money','Mai költés'],['quote','A mai gondolat'],['gift','Napi meglepi'],['moon','Hold'],['pet','Kabala']];
+const WSZ={hourly:[2,1],clock:[2,1],weather:[2,2],senj:[1,1],meds:[1,1],next:[1,2],todaycal:[1,2],tasks:[1,2],tomorrow:[1,1],remind:[1,1],celebr:[1,2],food:[1,1],water:[1,1],mail:[1,1],workout:[1,1],money:[1,1],quote:[2,1],gift:[1,1],moon:[1,1],pet:[1,1]};
 const WDEF_PHONE=['clock','weather','meds','next','todaycal','tasks','tomorrow','celebr','water','food','workout','mail'];
 function wOn(k){const w=S.settings.wTiles;if(!w)return innerWidth<520?WDEF_PHONE.includes(k):true;return w.includes(k)}
 function wxMini(name,lat,lon){const n=new Date(),s=sunTimes(new Date(today()+'T12:00:00'),lat,lon),j=getWx(lat,lon),cur=j&&j.current,info=cur?(WXC[cur.weather_code]||WXC[0]):null,isDay=n>=s.rise&&n<=s.set,kind=cur?info[2]:'clear';
@@ -2322,7 +2339,7 @@ function wxMini(name,lat,lon){const n=new Date(),s=sunTimes(new Date(today()+'T1
  if(kind==='storm')sc+='<i class="flash"></i>';
  const cls=isDay?'day':'night',grey=['cloudy','rain','storm','fog'].includes(kind)?'grey':'';
  const fc=j&&j.daily?j.daily.time.slice(1,4).map((d,i)=>`${DAYS[(new Date(d+'T12:00:00').getDay()+6)%7].slice(0,2)} ${(WXC[j.daily.weather_code[i+1]]||WXC[0])[1]}${Math.round(j.daily.temperature_2m_max[i+1])}°`).join(' · '):'';
- return `<div class="wxs ${cls} ${grey} wxm"><div class="sc">${sc}</div><div class="pl">📍 ${esc(name)}</div>${cur?`<div class="tmp">${Math.round(cur.temperature_2m)}°</div><div class="dsc">${info[1]} ${info[0]}</div>`:`<div class="tmp">${isDay?'☀️':'🌙'}</div><div class="dsc">${isDay?'Nappal':'Éjszaka'}</div>`}<div class="sr">🌅${tFmt(s.rise)} 🌇${tFmt(s.set)}</div>${fc?`<div class="fcm">${fc}</div>`:''}</div>`}
+ return `<div class="wxs ${cls} ${grey} wxm"><div class="sc">${sc}</div><div class="pl">📍 ${esc(name)}</div>${cur?`<div class="tmp">${Math.round(cur.temperature_2m)}°</div><div class="dsc">${info[1]} ${info[0]}</div><div class="wxx">Érezhető ${Math.round(cur.apparent_temperature??cur.temperature_2m)}° · 💨 ${Math.round(cur.wind_speed_10m||0)} km/h${cur.relative_humidity_2m!=null?' · 💧 '+cur.relative_humidity_2m+'%':''}</div>${j.daily?`<div class="wxx">Ma ${Math.round(j.daily.temperature_2m_min[0])}° / ${Math.round(j.daily.temperature_2m_max[0])}° · ☔ ${j.daily.precipitation_probability_max[0]??0}%</div>`:''}`:`<div class="tmp">${isDay?'☀️':'🌙'}</div><div class="dsc">${isDay?'Nappal':'Éjszaka'}</div>`}<div class="sr">🌅${tFmt(s.rise)} 🌇${tFmt(s.set)}</div>${fc?`<div class="fcm">${fc}</div>`:''}</div>`}
 function vWidget(){
  const n=new Date(),st=S.settings,t=today(),tm=ymd(new Date(Date.now()+864e5));
  const loc=st.localLat!=null?[st.localName||'Helyben',st.localLat,st.localLon]:SENJ,mo=moon(n);
@@ -2333,14 +2350,16 @@ function vWidget(){
  const rem=S.reminders.filter(x=>!x.done&&x.when&&x.when>=nowDT()).sort((a,b)=>a.when.localeCompare(b.when))[0];
  const ev=layoutCols(dayEvents(t)),cel=celebrations(14),ml=medLog(t);
  const L=(arr,f,e)=>arr.length?arr.map(f).join(''):`<div class="wl dim">${e}</div>`;
+ const wh=(()=>{const j=getWx(loc[1],loc[2]);return j&&j.hourly?j.hourly.time.map((tt,i)=>({h:tt.slice(11,13),t:Math.round(j.hourly.temperature_2m[i]),c:(WXC[j.hourly.weather_code[i]]||WXC[0])[1],p:j.hourly.precipitation_probability[i]})).slice(1,13):null})();
  const T={
+  hourly:()=>`<div class="wt c4 whr"><h2>🕐 Következő 12 óra · ${esc(loc[0])}</h2>${wh?`<div class="whg">${wh.map(x=>`<div><b>${x.h}</b><span>${x.c}</span><i>${x.t}°</i><small>${x.p?'☔'+x.p+'%':''}</small></div>`).join('')}</div>`:'<div class="wl dim">Az előrejelzés internet-kapcsolattal töltődik be…</div>'}</div>`,
   clock:()=>`<div class="wt c5 wclock" data-act="pet">${M('h')}<div><div class="wtime">${hm(n)}</div><div class="wdate">${DAYS[dow()]}, ${n.toLocaleDateString('hu-HU',{month:'long',day:'numeric'})}</div><div class="nevnap-hl wnv">🌸 ${esc(nevnapOf(t))}</div></div></div>`,
   weather:()=>`<div class="wt wwx">${wxMini(loc[0],loc[1],loc[2])}</div>`,
   senj:()=>`<div class="wt wwx">${wxMini('Senj',SENJ[1],SENJ[2])}</div>`,
   meds:()=>`<div class="wt c3" data-tab="egeszseg"><h2>💊 Gyógyszer</h2><div class="wl">Reggel ${medCell(ml,'reggel',t)}</div><div class="wl">Este ${medCell(ml,'este',t)}</div></div>`,
   next:()=>`<div class="wt c4" ${nl&&schoolColor(nl.school)?`style="background:linear-gradient(140deg,color-mix(in oklab,${schoolColor(nl.school)},var(--card) 35%),${schoolColor(nl.school)})"`:''}><h2>📚 Következő óra</h2>${nl?`<div class="wb">${esc(nl.subject||'Óra')}</div><div class="wl">${esc(nl.group||'')} ${esc(nl.school||'')}</div><div class="wcd">${cd}</div>`:'<div class="wb">Nincs több 🎉</div>'}</div>`,
-  todaycal:()=>`<div class="wt c1"><h2>🗓️ Ma · ${ev.length} esemény</h2>${L(ev.slice(0,5),e=>`<div class="wl"><i class="wdot" style="background:${e.color}"></i><b>${esc(e.start)}</b> ${esc(e.title)}${e.clash?' ⚠':''}</div>`,'Ma nincs óra.')}</div>`,
-  tasks:()=>`<div class="wt c2"><h2>✅ Ma · ${tasks.length}</h2>${L(tasks.slice(0,4),x=>`<div class="wl" data-toggle="tasks:${x.id}">○ ${esc(x.title)}</div>`,'Nincs teendő 🎉')}</div>`,
+  todaycal:()=>`<div class="wt c1"><h2>🗓️ Ma · ${ev.length} esemény</h2>${L(ev.slice(0,8),e=>`<div class="wl"><i class="wdot" style="background:${e.color}"></i><b>${esc(e.start)}</b> ${esc(e.title)}${e.clash?' ⚠':''}</div>`,'Ma nincs óra.')}</div>`,
+  tasks:()=>`<div class="wt c2"><h2>✅ Ma · ${tasks.length}</h2>${L(tasks.slice(0,7),x=>`<div class="wl" data-toggle="tasks:${x.id}">○ ${esc(x.title)}</div>`,'Nincs teendő 🎉')}</div>`,
   tomorrow:()=>`<div class="wt c4"><h2>➡️ Holnap</h2>${tmL.length?`<div class="wl"><b>📚 ${tmL.length} óra</b></div>`:''}${L(tmT.slice(0,3),x=>`<div class="wl">○ ${esc(x.title)}</div>`,tmL.length?'':'Nincs teendő')}${celOn(tm).map(c=>`<div class="wl">${c.p.type==='nevnap'?'🌸':'🎂'} ${esc(c.p.name)}</div>`).join('')}</div>`,
   remind:()=>`<div class="wt c5"><h2>⏰ Emlékeztető</h2>${rem?`<div class="wb">${fmtDT(rem.when)}</div><div class="wl">${esc(rem.title)}</div>`:'<div class="wl dim">Nincs</div>'}</div>`,
   celebr:()=>`<div class="wt c3" data-tab="unnep"><h2>🎂 Ünnepek</h2>${L(cel.slice(0,4),c=>`<div class="wl">${c.p.type==='nevnap'?'🌸':'🎂'} ${esc(c.p.name)} <b>${c.d===0?'MA':c.d===1?'holnap':c.d+' nap'}</b></div>`,'Nincs közelgő')}</div>`,
@@ -2356,7 +2375,7 @@ function vWidget(){
  };
  const cat=homeCat(),cb=Object.fromEntries(cat.map(x=>[x[0],x]));const on=wSel().filter(k=>T[k]||cb[k]);
  const W=innerWidth,cols=W<520?2:W<900?3:W<1300?4:6;
- const sz=k=>{const z=WSZ[k]||[1,1];return[Math.min(cols,z[0]),z[1]]};const units=on.reduce((a,k)=>{const z=sz(k);return a+z[0]*z[1]},0),rows=Math.max(1,Math.ceil(units/cols)+(cols<=2?1:0));
+ const sz=k=>{const z=(k==='hourly'&&cols<=3)?[cols,2]:(WSZ[k]||[1,1]);return[Math.min(cols,z[0]),z[1]]};const units=on.reduce((a,k)=>{const z=sz(k);return a+z[0]*z[1]},0),rows=Math.max(1,Math.ceil(units/cols)+(cols<=2?1:0));
  return `<div class="wg1" style="--cols:${cols};--rows:${rows}">${on.map(k=>{const z=sz(k);return (T[k]?T[k]():cb[k][2]).replace(/^<div (?:style="([^"]*)" )?/,(m,st)=>`<div style="grid-column:span ${z[0]};grid-row:span ${z[1]};${st||''}" `)}).join('')}</div>
  <div class="wbar"><button data-act="wedit" aria-label="Widget szerkesztése">✎</button><button data-act="exitwidget" aria-label="Teljes app">⤢</button></div>`;
 }
