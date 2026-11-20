@@ -3328,7 +3328,8 @@ function xPreview(P,fname){
  $('#xGo').onclick=async()=>{const rep=!!($('#xRep')&&$('#xRep').checked);closeForm();await xApply(P,rep);
   const t=P.plan.reduce((a,p)=>[a[0]+p.add.length,a[1]+p.upd.length,a[2]+p.del.length],[0,0,(rep?P.repl.length:0)]);
   const n=((S.settings.xlsIn&&S.settings.xlsIn.n)||0)+1;{const vn=P.ver?parseInt(P.ver.split('|')[0].replace(/\D/g,''),10):0;if(vn>(S.settings.xlsN||0))S.settings.xlsN=vn}S.settings.xlsIn={n,f:fname,v:P.ver?P.ver.split('|')[0]:'',at:today()+' '+hm(new Date()),sum:`＋${t[0]} ✎${t[1]} ✕${t[2]}`};await saveSettings();
-  toast(`Kész: ${t[0]} új, ${t[1]} módosult, ${t[2]} törölve`);confetti(20)};
+  toast(`Kész: ${t[0]} új, ${t[1]} módosult, ${t[2]} törölve`);confetti(20);
+  const Lp=P.plan.find(p=>p.sp.c==='lessons');if(Lp&&(Lp.add.length||Lp.upd.length)){tab='orarend';orView='tanitas';widgetMode=false;lastAnimTab=null;render()}};
 }
 function xlsLog(){const a=S.settings.xlsLast,b=S.settings.xlsIn;
  return `<div class="sub" style="margin:8px 0 0">${a?`↓ Utolsó letöltés: <b>${esc(a.v)}</b> · ${esc(a.at)}`:'Még nem volt letöltés.'}${b?`<br>↑ Utolsó feltöltés (#${b.n}): <b>${esc(b.v||'sablon')}</b> · ${esc(b.at)} · ${esc(b.sum||'')}`:''}</div>`}
@@ -3340,7 +3341,7 @@ $('#fileJson').onchange=async e=>{const f=e.target.files[0];e.target.value='';if
 $('#fileIn').onchange=async e=>{
  const file=e.target.files[0];e.target.value='';if(!file)return;
  if(!window.XLSX){toast('Az Excel-modul nem töltődött be');return}
- let wb;try{wb=XLSX.read(await file.arrayBuffer(),{cellDates:true})}catch(err){toast('Nem sikerült beolvasni a fájlt');return}
+ let wb;try{wb=XLSX.read(await file.arrayBuffer(),{cellDates:false})}catch(err){toast('Nem sikerült beolvasni a fájlt');return}
  try{const P=xPlan(wb);if(!P.plan.length){toast('Nem találtam ismert fület (pl. Órák, Teendők, Pénz) a fájlban');return}xPreview(P,file.name)}catch(err){console.error(err);toast('Hiba a fájl feldolgozásakor: '+err.message)}
 };
 
