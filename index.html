@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Phemextár</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="xlsx.full.min.js" onerror="var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';document.head.appendChild(s)"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Baloo+2:wght@500;700&family=Comfortaa:wght@500;700&family=Space+Grotesk:wght@500;700&family=Righteous&family=Racing+Sans+One&family=Audiowide&family=Monoton&family=Cinzel+Decorative:wght@700&family=Quicksand:wght@500;700&family=Lexend:wght@400;700&family=Playfair+Display:wght@700&family=Patrick+Hand&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f7f4ef;--card:#ffffff;--ink:#2a2724;--mut:#8b847b;--line:#ebe6de;--acc:#2a2724;--acc2:#efe9e0;
@@ -1165,7 +1165,7 @@ html[data-theme=jamaica][data-theme] header#hdr{background:linear-gradient(90deg
 <button class="fab" id="fab" aria-label="Új">＋</button>
 <nav id="nav"></nav>
 <div id="toast"></div>
-<input type="file" id="fileIn" accept=".xlsx,.xls,.csv" style="display:none"><input type="file" id="fileJson" accept=".json,application/json" style="display:none">
+<input type="file" id="fileIn" style="display:none"><input type="file" id="fileJson" accept=".json,application/json" style="display:none">
 
 <script>
 // ---------- Rajzok (saját vonalas macskák, ikonok) ----------
@@ -3351,9 +3351,15 @@ function nDT(v){if(v instanceof Date)return ymd(v)+'T'+hm(v);if(typeof v==='numb
 $('#fileJson').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(f)await importBackupFile(f)};
 $('#fileIn').onchange=async e=>{
  const file=e.target.files[0];e.target.value='';if(!file)return;
- if(!window.XLSX){toast('Az Excel-modul nem töltődött be');return}
- let wb;try{wb=XLSX.read(await file.arrayBuffer(),{cellDates:false})}catch(err){toast('Nem sikerült beolvasni a fájlt');return}
- try{const P=xPlan(wb);if(!P.plan.length){toast('Nem találtam ismert fület (pl. Órák, Teendők, Pénz) a fájlban');return}xPreview(P,file.name)}catch(err){console.error(err);toast('Hiba a fájl feldolgozásakor: '+err.message)}
+ const info=m=>sheet(`<div style="text-align:center;font-size:44px">📄</div><h3 style="text-align:center">${esc(file.name)}</h3><p style="text-align:center">${m}</p><div class="btns"><button class="sec" id="xiX">Bezár</button></div>`)&&($('#xiX').onclick=closeForm);
+ info('Beolvasás…');
+ if(!/\.(xlsx|xlsm|xls|csv)$/i.test(file.name)){info('⚠️ Ez nem Excel-fájl. Válassz .xlsx fájlt.');return}
+ for(let i=0;i<40&&!window.XLSX;i++)await new Promise(r=>setTimeout(r,250));
+ if(!window.XLSX){info('⚠️ Az Excel-olvasó nem töltődött be. Ellenőrizd az internetet, és próbáld újra.');return}
+ let wb;try{wb=XLSX.read(await file.arrayBuffer(),{cellDates:false})}catch(err){info('⚠️ Nem sikerült beolvasni a fájlt: '+esc(err.message||String(err)));return}
+ try{const P=xPlan(wb);if(!P.plan.length){info('⚠️ Nem találtam ismert fület (pl. Órarend, Teendők, Pénz). A fülek: '+esc(wb.SheetNames.join(', ')));return}
+  const has=P.plan.some(p=>p.add.length||p.upd.length||p.del.length)||P.repl.length;if(!has){const Lp=P.plan.find(p=>p.sp.c==='lessons');info('ℹ️ Nincs változás – minden adat már ugyanaz, mint a fájlban.'+(Lp?'<br>Órarend: '+allLessons().length+' alkalom van az appban.':''));return}
+  closeForm();xPreview(P,file.name)}catch(err){console.error(err);info('⚠️ Hiba a feldolgozáskor: '+esc(err.message||String(err)))}
 };
 
 initCloud();
