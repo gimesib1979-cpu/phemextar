@@ -934,6 +934,8 @@ html[data-mode=dark] .ctile{background:linear-gradient(140deg,color-mix(in oklab
 .hn-day{margin-top:8px}.hn-d{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin:6px 0 2px}.hn-ic{font-size:20px;flex:none;width:28px;text-align:center}
 .wglass{position:relative;width:150px;height:200px;margin:8px auto;border:4px solid #7cc8ff;border-top:0;border-radius:0 0 34px 34px;overflow:hidden;background:rgba(124,200,255,.08)}.wfill{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#7fd3ff,#2b8cff);transition:height .6s cubic-bezier(.2,.9,.3,1.2)}.wfill i{position:absolute;top:-8px;left:-50%;width:200%;height:16px;background:radial-gradient(circle at 10px 0,transparent 8px,#7fd3ff 9px) 0 0/20px 16px repeat-x;animation:wwave 2s linear infinite}@keyframes wwave{to{transform:translateX(20px)}}.wnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-shadow:0 0 8px #fff,0 0 2px #fff;color:#0b3d6b}.wnum b{font-size:52px;line-height:1}.wnum span{font-weight:800}
 .wcups{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;font-size:22px}.wcups span{opacity:.25;filter:grayscale(1)}.wcups span.on{opacity:1;filter:none}
+.pxg.pxall{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}.pxg.pxall .pxi>.wt{opacity:1;filter:none}
+.wl.nx3{display:grid;grid-template-columns:auto 1fr;column-gap:6px;white-space:normal;margin-bottom:3px}.wl.nx3 .wdot{grid-row:span 2;align-self:center}.wl.nx3 small{grid-column:2;font-size:.8em;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* fejléc gombok */
 header .hr{display:flex;align-items:center;gap:4px}
 header .hb{background:transparent;color:var(--ink);padding:6px;border-radius:12px;position:relative}
@@ -1388,7 +1390,7 @@ function vMa(){
  const sm=(id,cls,attr,ic,lb,val)=>[id,1,`<div class="wt ${cls} ht" ${attr}><div class="hi">${ic}</div><div class="hl2">${lb}</div>${val!=null?`<div class="hv">${val}</div>`:''}</div>`,ic,lb,attr,cls];
  const big=(id,cls,attr,ic,lb,inner)=>[id,2,`<div class="wt ${cls}" ${attr}>${inner}</div>`,ic,lb,attr,cls];
  const all=[
-  big('orarend','c4','data-tab="orarend"','🗓️','Órarend',`<h2>🗓️ Mai órarend · ${ev.length}</h2>${L(ev.slice(0,2),e=>`<div class="wl"><i class="wdot" style="background:${e.color}"></i><b>${esc(e.start)}</b> ${esc(e.title)}${e.clash?' ⚠':''}</div>`,'Ma nincs óra 🌴')}`),
+  big('orarend','c4','data-tab="orarend"','🗓️','Órarend',(()=>{const nx=nextLessons(3);return `<h2>🗓️ Következő 3 alkalom</h2>${nx.length?nx.map(l=>`<div class="wl nx3"><i class="wdot" style="background:${schoolColor(l.school)||'#9aa'}"></i><b>${dayLbl(l.date)}${['Ma','Holnap'].includes(dayLbl(l.date))?'':' '+fmtDate(l.date)} ${esc(l.start||'')}</b><small>${esc(l.group||l.school||l.subject||'Óra')}</small></div>`).join(''):'<div class="wl dim">Nincs következő óra – töltsd fel az órarendet 📊</div>'}`})()),
   big('teendok','c2','data-tab="teendok"','✅','Teendők',`<h2>✅ Teendők · ${tasks.length}</h2>${L(tasks.slice(0,2),x=>`<div class="wl" data-toggle="tasks:${x.id}">○ ${esc(x.title)}</div>`,'Nincs teendő 🎉')}`),
   sm('spend','c1','data-act="spend"','💸','Költés ＋',ft(daySpend(t))),
   sm('emlek','c3','data-tab="emlek"','⏰','Emlékeztető',rems.length+' db'),
@@ -1436,7 +1438,7 @@ function vMa(){
  if(homeFolder)return vPhemex(all);
  const on=homeIds(all),byId=Object.fromEntries(all.map(x=>[x[0],x]));
  const tl=on.map(id=>byId[id]).concat([['phemex',1,`<div class="wt ht phx" data-tab="phemex"><div class="hi">📂</div><div class="hl2">Phemex</div><div class="hv">${on.length}/${all.length} kint</div></div>`]]);
- return `<div class="hg" id="hg" style="--cols:4;--rows:6">${tl.map(([id,sp,html],i)=>html.replace(/^<div (?:style="([^"]*)" )?/,(m,st)=>`<div data-sp="${sp}" style="--ad:${(i*0.37%3).toFixed(2)}s;${st||''}" `)).join('')}</div>`;
+ return `<div class="hg" id="hg" style="--cols:4;--rows:6">${tl.map(([id,sp,html],i)=>html.replace(/^<div (?:style="([^"]*)" )?/,(m,st)=>`<div data-sp="${sp}"${id==='orarend'?' data-sr="2"':''} style="--ad:${(i*0.37%3).toFixed(2)}s;${st||''}" `)).join('')}</div>`;
 }
 let wAwakeOn=null;function wAwakeSync(){const want=!!(widgetMode&&S.settings.wAwake!==false);if(want!==wAwakeOn){wAwakeOn=want;const P=PX();if(P)P.keepAwake({on:want}).catch(()=>{});else if(navigator.wakeLock){if(want)navigator.wakeLock.request('screen').then(l=>{window.__wl=l}).catch(()=>{});else if(window.__wl){window.__wl.release();window.__wl=null}}}
  const n=hm(new Date()),st=S.settings;document.body.classList.toggle('wdim',!!(widgetMode&&st.wDim!==false&&(n>=(st.sleepTime||'22:00')||n<(st.morningTime||'06:30'))))}
@@ -1453,8 +1455,9 @@ function homeIds(all){const ok=new Set((all||HOME_CAT).map(x=>x[0]));return (Arr
 const WICO={radio:'📻',hourly:'⏱️',clock:'🕐',weather:'⛅',senj:'🌊',meds:'💊',next:'📚',todaycal:'🗓️',tasks:'✅',tomorrow:'➡️',remind:'⏰',celebr:'🎂',food:'🍽️',water:'💧',mail:'✉️',workout:'🤸',money:'💸',quote:'💜',gift:'🎁',moon:'🌙',pet:'🐱'};
 function wSel(){const L=S.settings.wTiles||WT.map(x=>x[0]).filter(wOn);if(!S.settings.wRadMig&&S.settings.wTiles&&!L.includes('radio')){S.settings.wRadMig=1;S.settings.wTiles=[...L,'radio'];return S.settings.wTiles}if(!S.settings.wHrMig&&S.settings.wTiles&&!L.includes('hourly')){S.settings.wHrMig=1;S.settings.wTiles=[...L.slice(0,2),'hourly',...L.slice(2)];return S.settings.wTiles}return L}
 function vPhemex(all){const on=homeIds(all);
- const seg=`<div class="seg">${[['fo','🏠 Főoldal'],['wg','▣ Widget'],['tel','📱 Telefon appjai']].map(([k,l])=>`<button class="${phxSeg===k?'act':''}" data-pxs="${k}">${l}</button>`).join('')}</div>`;
+ const seg=`<div class="seg">${[['mind','▦ Minden'],['fo','🏠 Főoldal'],['wg','▣ Widget'],['tel','📱 Telefon appjai']].map(([k,l])=>`<button class="${phxSeg===k?'act':''}" data-pxs="${k}">${l}</button>`).join('')}</div>`;
  const item=(id,ic,lb,attr,cls,i,pinAttr)=>`<div class="pxi ${i>=0?'on':''}"><div class="wt ht ${cls||''}" ${attr}><div class="hi">${ic}</div><div class="hl2">${lb}</div></div><button class="pxb" ${pinAttr}="${esc(id)}">${i>=0?'✓':'＋'}</button>${i>=0?`<span class="pxn">${i+1}</span>`:''}</div>`;
+ if(phxSeg==='mind')return seg+`<div class="tile c5 px-top"><div style="font-size:30px">▦</div><div style="flex:1"><div style="font-weight:800;font-size:17px">Minden csempe</div><div class="sub" style="margin:0">Koppints és nyílik. Kitenni/levenni a 🏠 Főoldal fülön tudod.</div></div></div><div class="pxg pxall">${all.map(x=>{const [id,,,ic,lb,attr,cls]=x;return `<div class="pxi"><div class="wt ht ${cls||''}" ${attr}><div class="hi">${ic}</div><div class="hl2">${lb}</div></div></div>`}).join('')}</div>`;
  if(phxSeg==='wg'){const sel=wSel(),list=[...WT.map(([k,l])=>[k,WICO[k]||'▫️',l,'','c'+((WT.findIndex(x=>x[0]===k))%5+1)]),...all.filter(x=>!['orarend','teendok','widget'].includes(x[0])).map(x=>[x[0],x[3],x[4],x[5],x[6]])];
   return seg+`<div class="tile c5 px-top"><div style="font-size:30px">▣</div><div style="flex:1;min-width:0"><div style="font-weight:800;font-size:17px">Widget-szerkesztő</div><div class="sub" style="margin:0"><b>＋</b> = kiteszem a widgetre, <b>✓</b> = leveszem. ${sel.length} csempe van kint. Tableten ez a 24 órás háttér-képernyő.</div></div></div>
   <div class="btns" style="margin:0 0 8px;flex-wrap:wrap"><button data-act="widget">▣ Widget megnyitása</button><button class="mini-btn" data-act="wgdef">Alapállapot</button><button class="mini-btn" data-act="wgnone">Ürítés</button><div style="width:100%;display:flex;align-items:center;gap:8px;font-weight:800">🔠 Betűméret <input type="range" min="0.8" max="2.6" step="0.05" value="${S.settings.wFont||1.3}" data-wf style="flex:1"><span id="wfV">${Math.round((S.settings.wFont||1.3)*100)}%</span></div><label style="display:flex;align-items:center;gap:6px;margin:0;font-size:13px"><input type="checkbox" data-set="wAwake" ${S.settings.wAwake!==false?'checked':''} style="width:auto"> 🔆 Képernyő ébren widget módban</label><label style="display:flex;align-items:center;gap:6px;margin:0;font-size:13px"><input type="checkbox" data-set="wDim" ${S.settings.wDim!==false?'checked':''} style="width:auto"> 🌙 Éjjel halványabb</label></div>
@@ -1468,9 +1471,9 @@ function vPhemex(all){const on=homeIds(all);
  <div class="pxg">${all.map(x=>{const [id,,,ic,lb,attr,cls]=x;return item(id,ic,lb,attr,cls,on.indexOf(id),'data-pin')}).join('')}</div>`}
 function vPhemexTab(){homeFolder=true;try{return vMa()}finally{homeFolder=false}}
 function fitHome(){const g=$('#hg');if(!g)return;scrollTo(0,0);const top=g.getBoundingClientRect().top,H=Math.max(160,innerHeight-12-top),W=g.clientWidth||innerWidth-20,gap=7;
- const it=[...g.children],sp=it.map(x=>Number(x.dataset.sp||1));let best=null;
- for(let c=1;c<=10;c++){const u=sp.reduce((a,s)=>a+Math.min(s,c),0),rows=Math.ceil(u/c),cw=(W-gap*(c-1))/c,ch=(H-gap*(rows-1))/rows;if(ch<34&&c<10)continue;const sc=Math.min(cw,ch*1.3)-(rows*c-u)*2;if(!best||sc>best.s)best={s:sc,c,rows}}
- g.style.setProperty('--cols',best.c);g.style.setProperty('--rows',best.rows);it.forEach((x,i)=>{x.style.gridColumn='span '+Math.min(sp[i],best.c);x.style.gridRow='span 1'});g.style.height=H+'px'}
+ const it=[...g.children],sp=it.map(x=>Number(x.dataset.sp||1)),sr=it.map(x=>Number(x.dataset.sr||1));let best=null;
+ for(let c=1;c<=10;c++){const u=sp.reduce((a,s,i)=>a+Math.min(s,c)*sr[i],0),rows=Math.ceil(u/c),cw=(W-gap*(c-1))/c,ch=(H-gap*(rows-1))/rows;if(ch<34&&c<10)continue;const sc=Math.min(cw,ch*1.3)-(rows*c-u)*2;if(!best||sc>best.s)best={s:sc,c,rows}}
+ g.style.setProperty('--cols',best.c);g.style.setProperty('--rows',best.rows);it.forEach((x,i)=>{x.style.gridColumn='span '+Math.min(sp[i],best.c);x.style.gridRow='span '+sr[i]});g.style.height=H+'px'}
 window.addEventListener('resize',()=>{if(tab==='ma'&&!widgetMode)fitHome()});
 const SPENDCATS=[['⛽','Tankolás'],['🍽️','Étel / étterem'],['🛒','Bolti vásárlás'],['☕','Kávé'],['🥤','Üdítő'],['🚆','Vonatjegy'],['🎫','Bérlet'],['🚌','Busz / BKV'],['🅿️','Parkolás'],['🛣️','Autópálya'],['💊','Patika'],['💡','Rezsi'],['📱','Telefon / net'],['👕','Ruha'],['🧽','Háztartás'],['🎁','Ajándék'],['🎬','Szórakozás'],['📚','Iskola / tananyag'],['🧁','Alapanyag'],['➕','Egyéb'],['💰','Fizetés (bevétel)']];
 function openSpend(){
@@ -2140,9 +2143,14 @@ function nextLesson(){const now=nowDT();return allLessons().filter(x=>x.date+'T'
 
 // ---------- AIDA csempe tartalma ----------
 let tickItems=[],tickI=0;
+function nextLessons(n){const now=nowDT();return allLessons().filter(l=>l.date+'T'+(l.end||l.start||'23:59')>=now).sort((a,b)=>(a.date+(a.start||'')).localeCompare(b.date+(b.start||''))).slice(0,n)}
+function dayLbl(k){const t=today(),tm=ymd(new Date(Date.now()+864e5));return k===t?'Ma':k===tm?'Holnap':DAYS[(new Date(k+'T12:00:00').getDay()+6)%7]}
 function buildTicks(){const t=today(),tm=ymd(new Date(Date.now()+864e5)),out=[];const nl=typeof nextLesson==='function'?nextLesson():null;
  const st=S.settings,loc=st.localLat!=null?[st.localName||'Helyben',st.localLat,st.localLon]:SENJ;
  out.push('🌸 Ma névnap: '+nevnapOf(t)+' · holnap: '+nevnapOf(tm));
+ {const nx=nextLessons(3);if(nx.length)out.push('🗓️ Következő alkalmak: '+nx.map(l=>dayLbl(l.date)+' '+fmtDate(l.date)+' '+(l.start||'')+' '+(l.group||l.school||l.subject||'')).join(' · '))}
+ {const g=st.waterGoal||8,w=waterGet(),hr=new Date().getHours(),exp=Math.max(0,Math.min(g,Math.round(g*(hr-8)/12)));if(hr>=8&&hr<22&&w<exp)out.push(`💧 Igyál egy pohár vizet! Ma eddig ${w}/${g} pohár – most ${exp} lenne az ideális.`)}
+ {const hn=(S.cnotes||[]).filter(n=>n.due&&!n.done).sort((a,b)=>a.due.localeCompare(b.due))[0];if(hn)out.push('⏳ Határidő: '+hn.group+' – '+hn.text.split('\n')[0].slice(0,50)+' · '+fmtDT(hn.due))}
  if(nl){const a=new Date(nl.date+'T'+(nl.start||'00:00')),d=Math.round((a-new Date())/6e4);out.push('📚 Következő óra: '+(nl.subject||'Óra')+(nl.group?' · '+nl.group:'')+(nl.school?' · '+nl.school:'')+(d>0&&d<600?` · ${d<60?d+' perc':Math.floor(d/60)+' ó '+d%60+' perc'} múlva`:nl.date!==t?' · '+fmtDate(nl.date)+' '+(nl.start||''):' · most tart'))}
  try{const ml=medLog(t);['reggel','este'].forEach(s=>{if(!medsFor(s).length)return;const x=ml[s];out.push(`💊 ${s==='reggel'?'Reggeli':'Esti'} gyógyszer: ${x&&x.s==='taken'?'bevéve '+x.at:x&&x.s==='skipped'?'kihagyva '+x.at:x&&x.s==='part'?'részben bevéve '+x.at:'még nincs nyugtázva ('+medDueTime(s)+')'}`)})}catch(_){}
  celebrations(7).forEach(c=>out.push((c.p.type==='nevnap'?'🌸 Névnap: ':'🎂 Születésnap: ')+c.p.name+(c.age?' ('+c.age+'.)':'')+(c.d===0?' – MA!':c.d===1?' – holnap':' – '+c.d+' nap múlva')+(c.p.note?' · '+c.p.note:'')));
@@ -2698,7 +2706,7 @@ function appIcon(pkg){const i=appIcons()[pkg];return i?`<img class="appic" src="
 async function openApp(pkg,fallbackUrl){const P=PX();if(P){try{await P.open({pkg});return}catch(_){}}
  if(fallbackUrl){window.open(fallbackUrl,'_blank');return}toast('Ez az app nincs telepítve, vagy csak a telefonon nyitható meg')}
 function openYT(){openApp('com.google.android.youtube','https://www.youtube.com/')}
-let appCounts={},countsInit=false,notifOn=null,installed=null,phxSeg='fo',radioSeg='fav',radioList=null,radioQ='',radioBusy=false;
+let appCounts={},countsInit=false,notifOn=null,installed=null,phxSeg='mind',radioSeg='fav',radioList=null,radioQ='',radioBusy=false;
 async function pollCounts(){const P=PX();if(!P||document.hidden)return;
  try{const r=await P.counts();notifOn=!!r.enabled;const c=r.counts||{};const bm=o=>Object.keys(o).filter(p=>/bluemail/i.test(p)).reduce((a,p)=>a+o[p],0);
   const nb=bm(c),ob=bm(appCounts),ch=JSON.stringify(c)!==JSON.stringify(appCounts);appCounts=c;
